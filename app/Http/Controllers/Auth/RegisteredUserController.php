@@ -1,0 +1,122 @@
+<?php
+
+namespace App\Http\Controllers\Auth;
+
+use App\Http\Controllers\Controller;
+use App\Http\Controllers\dashboard\SubscribeController;
+use App\Models\Package;
+use App\Models\User;
+use App\Models\sitting;
+use  App\Models\DurationPackage;
+use App\Providers\RouteServiceProvider;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rules;
+
+use Illuminate\Support\Facades\Validator;
+
+use App\Http\Requests\Auth\PackageRegisterRequest;
+
+class RegisteredUserController extends Controller
+{
+   
+    public function create(Request $request )
+    {
+        
+            $Settings = sitting::first();      
+            return view('site.Auth_User.registration', compact('Settings' 
+          //  ,'package','duration_p'
+        ));
+       
+     //   }
+        // return view('auth.register');
+    }
+    // public function create($request)
+    // {
+    //     $Settings = sitting::first();
+    //     $country_names = Countries::select('id', 'country_name', 'href', 'country_flag')->get();
+    //     $all_pinned_page = PinnedPages::all();
+    //     $adds = Adds::first();
+    //     return view('auth.registration', compact('Settings', 'country_names', 'all_pinned_page'));
+    //     // return view('auth.register');
+    // }
+
+    /**
+     * Handle an incoming registration request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\RedirectResponse
+     *
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    public function store(Request $request)
+    {
+        $request->validate([
+            'enname' => [
+                'required',
+                'string',
+                'max:255',
+                'unique:users,en_name',
+                'regex:/^[A-Za-z\s]+$/'
+            ],
+            'email' => [
+                'required',
+                'string',
+                'email',
+                'max:255',
+                'unique:users,email'
+            ],
+            'password' => [
+                'required',
+                'confirmed',
+                Rules\Password::defaults()
+            ],
+          //  'package_reg' => ['required','not_in:0'],
+        ], [
+            'enname.required' => 'حقل اسم المستخدم مطلوب',
+            'enname.regex' => 'يجب أن يحتوي حقل اسم المستخدم على أحرف ومسافات إنجليزية فقط.',
+            'enname.unique' => 'تم استخدام اسم المستخدم هذا من قبل',
+            'email.required' => 'حقل البريد الالكتروني مطلوب',
+            'email.email' => 'عنوان البريد الالكتروني غير صالح',
+            'email.unique' => 'تم استخدام البريد الالكتروني هذا من قبل',
+            'password.required' => 'حقل كلمة المرور مطلوب',
+            'password.confirmed' => 'يجب تأكيد كلمة المرور',
+            'password.min' => 'يجب أن تتكون كلمة المرور من 8 أحرف على الأقل',
+            'password.regex' => 'يجب أن تحتوي كلمة المرور على حرف كبير وحرف صغير ورقم ورمز',
+          //  'package_reg.*' => 'هذا الحقل مطلوب',
+        ]);
+
+        $string = $request->enname;
+        if (strpos($string, ' ') !== false) {
+            //   echo "String contains space between words.";
+
+            return redirect('users/register/')->with('msg', 'لا يجب ان يحتوي اسم المستخدم على مسافات');
+        } else {
+            // String is not contains space between words
+ 
+            $user = User::create([
+               'name' => $request->enname,
+                'en_name' => $request->enname,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+            ]);
+
+            event(new Registered($user));
+
+             Auth::login($user);
+
+// store package
+// $subsctrlr=new SubscribeController();
+// $year_id=0;
+// if(isset($request->year_reg)){
+//     $year_id=$request->year_reg;
+// }
+// $res=$subsctrlr->subscribe_store($user->id,$request->package_reg, $year_id);
+            // return redirect(RouteServiceProvider::HOME);
+            
+            return redirect()->route('site.home')->with('msg', '<h3>تم إنشاء حسابك بنجاح </h3><br/> انتظر حتى يتواصل معك فريق الإدارة.');
+        }
+    }
+}
