@@ -23,8 +23,13 @@ class Subcity extends Model
     {
         return $this->belongsTo(City::class, 'city_id');
     }
-    public function sites(): HasMany
+    public function districts(): HasMany
     {
-        return $this->hasMany(Sites::class, 'subcity_id');
+        return $this->hasMany(District::class, 'subcity_id');
+    }
+   
+   public function realstates(): HasMany
+    {
+        return $this->hasMany(Realstate::class, 'subcity_id');
     }
 }

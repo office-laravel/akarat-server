@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Database\Eloquent\Relations\HasMany;
 class City extends Model
 {
     use HasFactory;
@@ -26,8 +26,14 @@ class City extends Model
     {
         return $this->hasMany(Subcity::class, 'city_id');
     }
-    public function sites()
+    public function districts()
     {
-        return $this->hasMany(Sites::class, 'city_id');
+        return $this->hasMany(District::class, 'city_id');
+    }
+
+  
+    public function realstates(): HasMany
+    {
+        return $this->hasMany(Realstate::class, 'city_id');
     }
 }

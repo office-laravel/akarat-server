@@ -45,17 +45,21 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function PageMeSites()
-    {
-        return $this->hasMany(PageMe::class, 'users_id');
-    }
-    public function sites(): HasMany
-    {
-        return $this->hasMany(Sites::class, 'user_id');
-    }
+    // public function PageMeSites()
+    // {
+    //     return $this->hasMany(PageMe::class, 'users_id');
+    // }
+    // public function sites(): HasMany
+    // {
+    //     return $this->hasMany(Sites::class, 'user_id');
+    // }
     public function packagesusers(): HasMany
     {
         return $this->hasMany(PackageUser::class, 'user_id');
+    }
+    public function realstates(): HasMany
+    {
+        return $this->hasMany(Realstate::class, 'user_id');
     }
 
 }

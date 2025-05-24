@@ -32,21 +32,6 @@ class Package extends Model
         return $this->hasMany(DurationPackage::class, 'package_id');
     }
 
-    // public function getTypeConvAttribute()
-    // {
-    //     $conv = "";
-    //     switch ($this->type) {
-    //         case ('p'):
-    //             $conv = 'منتج';
-    //             break;
-    //         case ('s'):
-    //             $conv = 'خدمة';
-    //             break;
-
-    //         default:
-    //             $conv = 'منتج';
-    //     }
-    //     return $conv;
-    // }
+ 
 
 }

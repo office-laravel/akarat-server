@@ -27,6 +27,7 @@
                     </div>
                     <span class="nav-link-text me-1">الرئيسية</span>
                 </a>
+              
             </li>
 
             <li class="nav-item">
@@ -35,6 +36,14 @@
                         <i class="material-icons-round opacity-10">view_in_ar</i>
                     </div>
                     <span class="nav-link-text me-1">الاعدادات العامة</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " href="{{ url('admin/real-setting/all')}}">
+                    <div class="text-white text-center ms-2 d-flex align-items-center justify-content-center">
+                        <i class="material-icons-round opacity-10">view_in_ar</i>
+                    </div>
+                    <span class="nav-link-text me-1">اعدادات العقار</span>
                 </a>
             </li>
 
@@ -111,31 +120,9 @@
                     <span class="nav-link-text me-1">الأخبار</span>
                 </a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link " href="{{ route('SitesWait') }}">
-                    <div class="text-white text-center ms-2 d-flex align-items-center justify-content-center">
-                        <i class="material-icons-round opacity-10">table_view</i>
-                    </div>
-                    <span class="nav-link-text me-1">قائمة الانتظار</span>
-                </a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link " href="{{ route('sites.order') }}">
-                    <div class="text-white text-center ms-2 d-flex align-items-center justify-content-center">
-                        <i class="material-icons-round opacity-10">table_view</i>
-                    </div>
-                    <span class="nav-link-text me-1">طلبات تعديل المواقع</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link " href="{{ route('notification') }}">
-                    <div class="text-white text-center ms-2 d-flex align-items-center justify-content-center">
-                        <i class="material-icons-round opacity-10">table_view</i>
-                    </div>
-                    <span class="nav-link-text me-1">قسم المواقع لا تعمل</span>
-                </a>
-            </li>
+           
+ 
+             
             <li class="nav-item">
                 <a class="nav-link " href="{{ route('fixedsitesmain.main') }}">
                     <div class="text-white text-center ms-2 d-flex align-items-center justify-content-center">
@@ -144,22 +131,8 @@
                     <span class="nav-link-text me-1">مواقع مثبتة الرئيسية</span>
                 </a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link " href="{{ route('fixedsitesnews.main') }}">
-                    <div class="text-white text-center ms-2 d-flex align-items-center justify-content-center">
-                        <i class="material-icons-round opacity-10">table_view</i>
-                    </div>
-                    <span class="nav-link-text me-1">مواقع مثبتة بالاخبار</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link " href="{{ route('fixedsites.main') }}">
-                    <div class="text-white text-center ms-2 d-flex align-items-center justify-content-center">
-                        <i class="material-icons-round opacity-10">table_view</i>
-                    </div>
-                    <span class="nav-link-text me-1">المواقع المثبتة</span>
-                </a>
-            </li>
+            
+           
             <li class="nav-item">
                 <a class="nav-link " href="{{ route('users.main') }}">
                     <div class="text-white text-center ms-2 d-flex align-items-center justify-content-center">

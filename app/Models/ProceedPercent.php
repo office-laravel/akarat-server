@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Database\Eloquent\Relations\HasMany;
 class ProceedPercent extends Model
 {
     protected $table = 'proceed_percents';
@@ -14,4 +14,9 @@ class ProceedPercent extends Model
 'status',
 
     ];
+     public function realstates(): HasMany
+   {
+       return $this->hasMany(Realstate::class, 'projProceedPercent_id');
+   }
+    
 }

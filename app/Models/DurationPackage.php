@@ -22,28 +22,13 @@ class DurationPackage extends Model
 
     public function package(): BelongsTo
     {
-        return $this->belongsTo(Package::class, 'package_id');
+        return $this->belongsTo(\App\Models\Package::class, 'package_id');
     }
     public function duration(): BelongsTo
     {
         return $this->belongsTo(Duration::class, 'duration_id');
     }
 
-    // public function getTypeConvAttribute()
-    // {
-    //     $conv = "";
-    //     switch ($this->type) {
-    //         case ('p'):
-    //             $conv = 'منتج';
-    //             break;
-    //         case ('s'):
-    //             $conv = 'خدمة';
-    //             break;
-
-    //         default:
-    //             $conv = 'منتج';
-    //     }
-    //     return $conv;
-    // }
+  
 
 }

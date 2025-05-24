@@ -171,18 +171,7 @@
                                 class="icon icon-lg icon-shape bg-gradient-dark shadow-dark text-center border-radius-xl mt-n4 position-absolute">
                                 <i class="material-icons opacity-10">weekend</i>
                             </div>
-                            <a href="{{route('news.main')}}">
-                                <div class="text-start pt-1">
-                                    <p class="text-sm mb-0 text-capitalize">عدد المقالات </p>
-                                    <h4 class="mb-0">
-                                        <?php
-                                            use App\Models\News;
-                                            $news = News::count();
-                                            echo $news;
-                                        ?>
-                                    </h4>
-                                </div>
-                            </a>
+                        
                         </div>
                         <hr class="dark horizontal my-0">
                         <div class="card-footer p-3">
@@ -198,14 +187,14 @@
                                 class="icon icon-lg icon-shape bg-gradient-dark shadow-dark text-center border-radius-xl mt-n4 position-absolute">
                                 <i class="material-icons opacity-10">weekend</i>
                             </div>
-                            <a href="{{route('SitesWait')}}">
+                            <a href="#">
                                 <div class="text-start pt-1">
                                     <p class="text-sm mb-0 text-capitalize">عدد المواقع قيد الانتظار </p>
                                     <h4 class="mb-0">
                                         <?php
                                                 
-                                                $count_wait_Sites = Sites::where('confirmed', 0)->count();
-                                                echo $count_wait_Sites;
+                                                // $count_wait_Sites = Sites::where('confirmed', 0)->count();
+                                                // echo $count_wait_Sites;
                                             ?>
                                     </h4>
                                 </div>
@@ -225,14 +214,14 @@
                                 class="icon icon-lg icon-shape bg-gradient-primary shadow-primary text-center border-radius-xl mt-n4 position-absolute">
                                 <i class="material-icons opacity-10">leaderboard</i>
                             </div>
-                            <a href="{{route('sites.main')}}">
+                            <a href="#">
                                 <div class="text-start pt-1">
                                     <p class="text-sm mb-0 text-capitalize">عدد المواقع</p>
                                     <h4 class="mb-0">
                                         <?php
                                             
-                                            $count_Sites = Sites::where('confirmed', 1)->count();
-                                            echo $count_Sites;
+                                            // $count_Sites = Sites::where('confirmed', 1)->count();
+                                            // echo $count_Sites;
                                         ?>
                                     </h4>
                                 </div>
@@ -246,32 +235,7 @@
                     </div>
                 </div>
                 <div class="col-lg-3 col-sm-6 mb-lg-0 mb-4 mt-5">
-                    <div class="card">
-                        <div class="card-header p-3 pt-2">
-                            <div
-                                class="icon icon-lg icon-shape bg-gradient-success shadow-success text-center border-radius-xl mt-n4 position-absolute">
-                                <i class="material-icons opacity-10">store</i>
-                            </div>
-                            <a href="{{route('countries.main')}}">
-                            <div class="text-start pt-1">
-                                <p class="text-sm mb-0 text-capitalize">عدد الدول</p>
-                                <h4 class="mb-0">
-                                    {{-- <span class="text-danger text-sm font-weight-bolder ms-1">-2%</span> --}}
-                                    <?php
-                                        use App\Models\Countries;
-                                        $count_Countries = Countries::count();
-                                        echo $count_Countries;
-                                    ?>
-                                </h4>
-                            </div>
-                        </a>
-                        </div>
-                        <hr class="dark horizontal my-0">
-                        <div class="card-footer p-3">
-                            <p class="mb-0 text-start"><span class="text-success text-sm font-weight-bolder ms-1">+5%
-                                </span>من الشهر الماضي</p>
-                        </div>
-                    </div>
+                   
                 </div>
                 <div class="col-lg-3 col-sm-6 mt-5">
                     <div class="card">

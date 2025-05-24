@@ -1,5 +1,10 @@
 <?php
 
+use App\Http\Controllers\dashboard\DeliverDateController;
+use App\Http\Controllers\dashboard\DistrictController;
+use App\Http\Controllers\dashboard\FeatureController;
+use App\Http\Controllers\dashboard\NearPlaceController;
+use App\Http\Controllers\dashboard\RoomController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
@@ -37,6 +42,10 @@ use App\Http\Controllers\dashboard\SubscribeController;
 //site
 use App\Http\Controllers\Web\HomeController;
 use App\Http\Controllers\Auth\LoginController; // step 1
+//real
+use App\Http\Controllers\dashboard\RealSettingController;
+use App\Http\Controllers\dashboard\BathController;
+
 
 
 /*
@@ -51,8 +60,11 @@ use App\Http\Controllers\Auth\LoginController; // step 1
 */
 
 //Route::get('/login', [LoginController::class, 'login']); 
-
-    Auth::routes();
+Route::get('/storagelink', function() {
+    $exitCode = Artisan::call('storage:link');
+      return 'ok';
+ });
+Auth::routes();
 
 Route::get('/send', function () {
     Artisan::call('optimize:clear');
@@ -354,14 +366,49 @@ Route::prefix('admin')->group(function () {
         Route::get('edit/{id}', [SubscribeController::class, 'admin_edit']);
         Route::post('delete/{id}', [SubscribeController::class, 'admin_destroy']);
     });
-       //الاشتراكات بانتظار الموافقة
-       Route::middleware('admin')->prefix('wait-subscribe')->group(function () {
+    //الاشتراكات بانتظار الموافقة
+    Route::middleware('admin')->prefix('wait-subscribe')->group(function () {
         Route::get('all', [SubscribeController::class, 'admin_index_wait'])->name('admin.wait-subscribe');
-       // Route::get('create', [SubscribeController::class, 'admin_create']);
-      //  Route::post('store', [SubscribeController::class, 'admin_store']);
+        // Route::get('create', [SubscribeController::class, 'admin_create']);
+        //  Route::post('store', [SubscribeController::class, 'admin_store']);
         Route::post('update/{id}', [SubscribeController::class, 'admin_update_wait']);
         Route::get('edit/{id}', [SubscribeController::class, 'admin_edit_wait']);
-       // Route::post('delete/{id}', [SubscribeController::class, 'admin_destroy']);
+        // Route::post('delete/{id}', [SubscribeController::class, 'admin_destroy']);
+    });
+    //اعدادات العقار
+    Route::middleware('admin')->prefix('real-setting')->group(function () {
+        Route::get('all', [RealSettingController::class, 'index']);
+        //Bath
+        Route::resource('bath', BathController::class, ['except' => ['update']]);
+        Route::prefix('bath')->group(function () {
+            Route::post('/update/{id}', [BathController::class, 'update'])->name('bath.update');
+        });
+        //Room
+        Route::resource('room', RoomController::class, ['except' => ['update']]);
+        Route::prefix('room')->group(function () {
+            Route::post('/update/{id}', [RoomController::class, 'update'])->name('room.update');
+        });
+        //deliverdate
+        Route::resource('deliverdate', DeliverDateController::class, ['except' => ['update']]);
+        Route::prefix('deliverdate')->group(function () {
+            Route::post('/update/{id}', [DeliverDateController::class, 'update'])->name('deliverdate.update');
+        });
+    
+          //deliverdate
+          Route::resource('district', DistrictController::class, ['except' => ['update']]);
+          Route::prefix('district')->group(function () {
+              Route::post('/update/{id}', [DistrictController::class, 'update'])->name('district.update');
+          });
+            //features
+            Route::resource('feature', FeatureController::class, ['except' => ['update']]);
+            Route::prefix('feature')->group(function () {
+                Route::post('/update/{id}', [FeatureController::class, 'update'])->name('feature.update');
+            });
+              //nearplace
+              Route::resource('nearplace', NearPlaceController::class, ['except' => ['update']]);
+              Route::prefix('nearplace')->group(function () {
+                  Route::post('/update/{id}', [NearPlaceController::class, 'update'])->name('nearplace.update');
+              });
     });
 
 });
@@ -376,8 +423,8 @@ Route::prefix('admin')->group(function () {
 // Login User System
 /******************** Users Route **********************/
 Route::prefix('users')->group(function () {
-   Route::get('/register', [App\Http\Controllers\Auth\RegisteredUserController::class, 'create'])->name('registerr');
-   Route::post('/register', [App\Http\Controllers\Auth\RegisteredUserController::class, 'store'])->name('store.Users');
+    Route::get('/register', [App\Http\Controllers\Auth\RegisteredUserController::class, 'create'])->name('registerr');
+    Route::post('/register', [App\Http\Controllers\Auth\RegisteredUserController::class, 'store'])->name('store.Users');
     Route::get('/loginu', [AuthenticatedSessionController::class, 'create'])->name('loginu');
     Route::post('/loginu', [AuthenticatedSessionController::class, 'store'])->name('setlogin');
     Route::get('/logoutu', [AuthenticatedSessionController::class, 'destroy'])->name('logoutu');
@@ -449,13 +496,13 @@ Route::get('all/tags/{id}', [App\Http\Controllers\dalil\dalilController::class, 
 Route::get('news/all', [dalilController::class, 'getAllNews'])->name('news.all');
 Route::get('news/{id}', [dalilController::class, 'getDescrNews'])->name('news.descr');
 Route::middleware('auth')->group(function () {
-Route::get('user/create-sites', [App\Http\Controllers\dalil\dalilController::class, 'createSites'])->name('create-sites.user');
-//update
-Route::get('user/edit-sites/{id}', [App\Http\Controllers\dalil\dalilController::class, 'editSites'])->name('edit-sites.user');
-Route::post('user/update-sites/{id}', [App\Http\Controllers\dalil\dalilController::class, 'update'])->name('update-sites.user');
-//delete
-Route::post('user/sites/destroy/{id}', [App\Http\Controllers\dalil\dalilController::class, 'destroy'])->name('destroy-sites.user');
-Route::get('user/mysubscribe', [SubscribeController::class, 'my_package']);
+    Route::get('user/create-sites', [App\Http\Controllers\dalil\dalilController::class, 'createSites'])->name('create-sites.user');
+    //update
+    Route::get('user/edit-sites/{id}', [App\Http\Controllers\dalil\dalilController::class, 'editSites'])->name('edit-sites.user');
+    Route::post('user/update-sites/{id}', [App\Http\Controllers\dalil\dalilController::class, 'update'])->name('update-sites.user');
+    //delete
+    Route::post('user/sites/destroy/{id}', [App\Http\Controllers\dalil\dalilController::class, 'destroy'])->name('destroy-sites.user');
+    Route::get('user/mysubscribe', [SubscribeController::class, 'my_package']);
 });
 Route::post('supcate/', [App\Http\Controllers\dalil\dalilController::class, 'supCate'])->name('supcate');
 Route::post('/store-sites', [App\Http\Controllers\dalil\dalilController::class, 'StoreSites'])->name('store-sites.user');

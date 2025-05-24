@@ -3,7 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 class Realstate extends Model
 {
     protected $table = 'realstates';
@@ -51,12 +52,81 @@ class Realstate extends Model
 'keywords',
 'RealOwnership',
 'RealOwnership_id',
-'id',
-'name',
-'val',
-'icon',
-'sequence',
-'status',
+ 
 
     ];
+
+    
+    public function featurerealstates(): HasMany
+    {
+        return $this->hasMany(FeatureRealstate::class, 'realstate_id');
+    }
+    public function mediastors(): HasMany
+    {
+        return $this->hasMany(Mediastor::class, 'realstate_id');
+    }
+    public function packageuser(): BelongsTo
+    {
+        return $this->belongsTo(PackageUser::class, 'package_user_id');
+    }
+    public function residence(): BelongsTo
+    {
+        return $this->belongsTo(Residence::class, 'residence_id');
+    }
+    public function trade(): BelongsTo
+    {
+        return $this->belongsTo(Trade::class, 'trade_id');
+    }
+
+    public function room(): BelongsTo
+    {
+        return $this->belongsTo(Room::class, 'room_id');
+    }
+    public function bath(): BelongsTo
+    {
+        return $this->belongsTo(Bath::class, 'bath_id');
+    }
+    public function deliverdate(): BelongsTo
+    {
+        return $this->belongsTo(DeliverDate::class, 'projDeliverdates_id');
+    }
+
+    public function proceedpercent(): BelongsTo
+    {
+        return $this->belongsTo(ProceedPercent::class, 'projProceedPercent_id');
+    }
+
+    public function projresidence(): BelongsTo
+    {
+        return $this->belongsTo(Residence::class, 'projResidence_id');
+    }
+
+    public function projtrade(): BelongsTo
+    {
+        return $this->belongsTo(Trade::class, 'projTrade_id');
+    }
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+    public function city(): BelongsTo
+    {
+        return $this->belongsTo(City::class, 'city_id');
+    }
+    public function subcity(): BelongsTo
+    {
+        return $this->belongsTo(Subcity::class, 'subcity_id');
+    }
+    public function district(): BelongsTo
+    {
+        return $this->belongsTo(District::class, 'district_id');
+    }
+    public function realownership(): BelongsTo
+    {
+        return $this->belongsTo(RealOwnership::class, 'RealOwnership_id');
+    }
+  
+    
+
+
 }

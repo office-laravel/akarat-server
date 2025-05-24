@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Mediastor extends Model
 {
     protected $table = 'mediastors';
@@ -17,4 +17,8 @@ class Mediastor extends Model
 'is_feature',
 
     ];
+    public function realstate(): BelongsTo
+    {
+        return $this->belongsTo(Realstate::class, 'realstate_id')->withDefault();
+    } 
 }

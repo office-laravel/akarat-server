@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Database\Eloquent\Relations\HasMany;
 class FeatureCategory extends Model
 {
     protected $table = 'features_categories';
@@ -14,4 +14,12 @@ class FeatureCategory extends Model
 'status',
 
     ];
+    public function features(): HasMany
+    {
+        return $this->hasMany(Feature::class, 'f_category_id');
+    }
+    public function featurerealstates(): HasMany
+    {
+        return $this->hasMany(FeatureRealstate::class, 'f_category_id');
+    }
 }

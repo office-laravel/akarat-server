@@ -32,21 +32,6 @@ class Duration extends Model
         //جدول Duration وجدول PackageUser الرابط duration_id
         return $this->hasMany(PackageUser::class, 'duration_id');
     }
-    // public function getTypeConvAttribute()
-    // {
-    //     $conv = "";
-    //     switch ($this->type) {
-    //         case ('p'):
-    //             $conv = 'منتج';
-    //             break;
-    //         case ('s'):
-    //             $conv = 'خدمة';
-    //             break;
-
-    //         default:
-    //             $conv = 'منتج';
-    //     }
-    //     return $conv;
-    // }
+  
 
 }

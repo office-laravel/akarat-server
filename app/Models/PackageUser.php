@@ -58,13 +58,14 @@ class PackageUser extends Model
     {
         return $this->belongsTo(Package::class, 'package_id');
     }
-    public function packagesusers(): HasMany
-    {
-        return $this->hasMany(Sites::class, 'package_user_id');
-    }
+    
 
     public function duration(): BelongsTo
     {
         return $this->belongsTo(Duration::class, 'duration_id');
+    }
+    public function realstates(): HasMany
+    {
+        return $this->hasMany(Realstate::class, 'package_user_id');
     }
 }

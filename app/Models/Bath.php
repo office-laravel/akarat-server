@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Database\Eloquent\Relations\HasMany;
 class Bath extends Model
 {
     protected $table = 'baths';
@@ -15,4 +15,8 @@ class Bath extends Model
 
  ];  
 
+ public function realstates(): HasMany
+   {
+       return $this->hasMany(Realstate::class, 'bath_id');
+   }
 }
